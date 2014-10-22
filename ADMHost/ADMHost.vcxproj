@@ -52,7 +52,7 @@
     <IntDir>$(ProjectDir)\obj\$(Configuration)\</IntDir>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
-    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PreBuildEvent>
@@ -93,7 +93,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
       <Message>Importing type library</Message>
-      <Command>$(FrameworkSDKDir)bin\TlbExp /out:$(IntDir)ManagedHost.tlb $(OutDir)ManagedHost.dll</Command>
+      <Command>"C:\Program Files (x86)\Windows Kits\8.1\bin\TlbExp.exe" /out:$(IntDir)ManagedHost.tlb $(OutDir)ManagedHost.dll</Command>
     </PreBuildEvent>
     <Midl>
       <OutputDirectory>$(IntDir)</OutputDirectory>
