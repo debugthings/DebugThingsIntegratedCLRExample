@@ -1,0 +1,61 @@
+midl_pragma warning (disable : 2111)
+import "oaidl.idl";
+import "ocidl.idl";
+midl_pragma warning (enable : 2111)
+
+[helpstring("Interface for the managed side of the CLR host to support"),
+ local,
+ object,
+ oleautomation,
+ uuid(5598179a-7f8f-465d-be12-da9c1f0aa115)]
+interface IManagedHost : IUnknown
+{
+    [helpstring("Create a new AppDomain")]
+    HRESULT CreateAppDomain([in]BSTR name, [out, retval]DWORD *pId);
+
+    [helpstring("Write a message")]
+    HRESULT Write([in]BSTR message);
+};
+cpp_quote("_COM_SMARTPTR_TYPEDEF(IManagedHost, __uuidof(IManagedHost));")
+
+[helpstring("Interface for the unmanaged side of the CLR host to support"),
+ local,
+ object,
+ oleautomation,
+ uuid(fb266835-5aa4-4810-939b-dc5a0b6ab993)]
+interface IUnmanagedHost : IUnknown
+{
+    [helpstring("Start the CLR")]
+    HRESULT Start();
+
+    [helpstring("Get the managed host in the default AppDomain"),
+     propget]
+    HRESULT DefaultManagedHost([out, retval]IManagedHost **ppHost);
+
+    [helpstring("Get the managed host in a specific AppDomain")]
+    HRESULT GetManagedHost([in]DWORD dwAppDomain, [out, retval]IManagedHost **ppHost);
+};
+cpp_quote("_COM_SMARTPTR_TYPEDEF(IUnmanagedHost, __uuidof(IUnmanagedHost));")
+
+[uuid(b39592a2-a317-41d1-977f-028d7b4f6c5e),
+ version(1.0)]
+library ADMHost
+{
+    importlib("stdole2.tlb");
+    importlib("mscorlib.tlb");
+
+    [helpstring("Managed half of the CLR host"),
+     uuid(bd7992e9-2b30-4af0-8c8a-d4ab4c817f5f)]
+    coclass CClrHost
+    {
+        [default] interface IUnmanagedHost;
+        interface ISupportErrorInfo;
+    };
+
+    [helpstring("Unmanaged half of the CLR host"),
+     uuid(66ab9d22-aaff-4102-af99-be4d1e39771b)]
+    coclass UnmanagedHost
+    {
+        [default] interface IManagedHost;
+    };
+};
