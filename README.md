@@ -13,7 +13,7 @@ http://blogs.msdn.com/b/shawnfa/archive/2005/10/12/480186.aspx
 #How to build!
 You **SHOULD** be able to just build this with VisualStudio 2013. It's old enough to be compiled in VS2008. 
 
-##Issues
+#Issues
 If your having issues with the build step you can manually export the TLB that the ADM host is looking for.
 
 If you try to debug this application and it fails make sure it's building properly. Also make sure you have not changed any of the underlying files.
