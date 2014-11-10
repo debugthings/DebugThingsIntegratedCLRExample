@@ -9,7 +9,9 @@ namespace Threading
     {
         static void Main(string[] args)
         {
+            GC.Collect();
             System.Diagnostics.Trace.WriteLine("Test");
+            
         }
     }
 }

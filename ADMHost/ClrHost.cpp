@@ -67,11 +67,17 @@ HRESULT CClrHost::BindToRuntime(__deref_in IUnmanagedHost **pHost)
 /// <summary>
 ///     Get a manager from the host
 /// </summary>
-STDMETHODIMP CClrHost::GetHostManager(const IID &, __deref_opt_out_opt void **ppvObject)
+STDMETHODIMP CClrHost::GetHostManager(const IID &RIID, __deref_opt_out_opt void **ppvObject)
 {
     if(ppvObject == NULL)
         return E_POINTER;
     
+	if (RIID == IID_IHostGCManager)
+	{
+		*ppvObject = (IHostGCManager*)this;
+		return S_OK;
+	}
+
     *ppvObject = NULL;
     return E_NOINTERFACE;
 }
@@ -121,12 +127,12 @@ STDMETHODIMP CClrHost::raw_Start()
     HRESULT hrHostControl = m_pClr->SetHostControl(static_cast<IHostControl *>(this));
     if(FAILED(hrHostControl))
         return hrHostControl;
-
+	
     // setup the AppDomainManager
     HRESULT hrSetAdm = m_pClrControl->SetAppDomainManagerType(AppDomainManagerAssembly, AppDomainManagerType);
     if(FAILED(hrSetAdm))
         return hrSetAdm;
-
+	
 	// get the host protection manager
 	ICLRHostProtectionManager *pHostProtectionManager = NULL;
 	HRESULT hrGetProtectionManager = m_pClrControl->GetCLRManager(
@@ -203,3 +209,8 @@ STDMETHODIMP CClrHost::raw_GetManagedHost(long appDomain, IManagedHost **ppHost)
         return S_OK;
     }
 }
+
+	// IHostGCManager
+STDMETHODIMP CClrHost::SuspensionEnding(DWORD generation){ return S_OK; }
+STDMETHODIMP CClrHost::SuspensionStarting(){ return S_OK; }
+STDMETHODIMP CClrHost::ThreadIsBlockingForSuspension(){ return S_OK; }
