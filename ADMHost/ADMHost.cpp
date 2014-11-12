@@ -39,7 +39,7 @@ int RunApplication(IUnmanagedHostPtr &pClr)
 int wmain(int, wchar_t **)
 {
     int returnCode = 0;
-    CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+    HRESULT hrCoInit = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
     
     try
     {
