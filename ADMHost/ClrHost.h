@@ -35,19 +35,19 @@ protected:
 	HRESULT FinalConstruct();
 
 public:
-	static HRESULT BindToRuntime(__deref_in IUnmanagedHost **pHost);
+	static HRESULT BindToRuntime(IUnmanagedHost **pHost);
 
 	// IHostControl
 public:
-	STDMETHODIMP GetHostManager(const IID &riid, __deref_opt_out_opt void **ppvObject);
-	STDMETHODIMP SetAppDomainManager(DWORD dwAppDomainId, __in IUnknown *pUnkAppDomainManager);
+	STDMETHODIMP GetHostManager(const IID &riid,  void **ppvObject);
+	STDMETHODIMP SetAppDomainManager(DWORD dwAppDomainId,  IUnknown *pUnkAppDomainManager);
 
 	// IUnmanagedHost
 public:
 	STDMETHODIMP raw_Start();
 	STDMETHODIMP raw_Stop();
-	STDMETHODIMP get_DefaultManagedHost(__out IManagedHost **ppHost);
-	STDMETHODIMP raw_GetManagedHost(long appDomain, __out IManagedHost **ppHost);
+	STDMETHODIMP get_DefaultManagedHost( IManagedHost **ppHost);
+	STDMETHODIMP raw_GetManagedHost(long appDomain,  IManagedHost **ppHost);
 
 	// IHostGCManager
 public:

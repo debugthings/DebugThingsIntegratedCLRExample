@@ -33,6 +33,8 @@
 #include <mscoree.h>
 #import "ManagedHost.tlb" no_namespace
 #pragma warning (pop)
+#include <metahost.h>
+#pragma comment(lib, "mscoree.lib")
 
 using namespace ATL;
 using namespace std;
