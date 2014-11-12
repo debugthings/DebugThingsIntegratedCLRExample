@@ -2,10 +2,14 @@
 
 
 #include "stdafx.h"
+// MySQL Preprocessor 
+#include <my_global.h>
+#include <my_sys.h>
+#include <mysql.h>
 #include "ClrHost.h"
 
-class CADMHostModule : public CAtlExeModuleT<CADMHostModule> { };
-CADMHostModule _AtlModule;
+//class CADMHostModule : public CAtlExeModuleT<CADMHostModule> { };
+//CADMHostModule _AtlModule;
 
 /// <summary>
 ///		Do the work of running the application
